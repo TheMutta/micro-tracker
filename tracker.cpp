@@ -4,22 +4,8 @@
 #include <ncurses.h>
 
 using json = nlohmann::json;
-/*
-void todo() {
-	for (auto entry : data) {
-		std::string output;
 
-		if (entry["completed"]) {
-			output += "✔";
-		} else {
-			output += "✘";
-		}
-	
-		std::cout << output << std::endl;
-	}
-}*/
-
-
+namespace food {
 void print_elements(std::map<std::string, std::size_t> &food, std::size_t &total) {
 	for (auto [name, calories] : food) {
 		printw("%s\t%lukcal\n", name.c_str(), calories);
@@ -55,20 +41,21 @@ void save_data(std::map<std::string, std::size_t> &food) {
 	std::ofstream f("food.json");
 	f << data;
 }
+}
 
 int main() {
 	initscr();
 	noecho();
 	
 	std::map<std::string, std::size_t> food;
-	load_data(food);
+	food::load_data(food);
 
 	bool done = false;
 
 	while(!done) {
-		std::size_t totalCalories = 0;
-		print_elements(food, totalCalories);
-		print_total(totalCalories);
+		std::size_t total_calories = 0;
+		food::print_elements(food, total_calories);
+		food::print_total(total_calories);
 
 		int ch = getch();
 		switch(ch) {
@@ -102,7 +89,7 @@ int main() {
 				}
 				break;
 			case 'w':
-				save_data(food);
+				food::save_data(food);
 				break;
 			case 'q':
 				done = true;
