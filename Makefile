@@ -1,2 +1,2 @@
 all:
-	g++ *.cpp -o trackera.app -lncurses
+	g++ *.cpp -o tracker.app -lncurses

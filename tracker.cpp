@@ -88,8 +88,23 @@ int main() {
 				food[std::string(name)] = calories;
 				}
 				break;
-			case 'q':
+			case 'c':{
+				char confirm;
+				echo();
+				printw("\nDo you want to clear the list (Y/N): ");
+				scanw("%c", &confirm);
+				noecho();
+
+				if (confirm == 'y' || confirm == 'Y') {
+					food.clear();
+				}
+
+				}
+				break;
+			case 'w':
 				save_data(food);
+				break;
+			case 'q':
 				done = true;
 				break;
 
